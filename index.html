@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Positive Young Minds | Organisation Management</title>
+    <link rel="icon" type="image/jpeg" href="company-assets/positive-young-minds-logo.jpg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section id="auth-screen" class="auth-screen" aria-labelledby="auth-title">
+      <form id="auth-form" class="auth-card">
+        <div class="brand auth-brand"><img class="brand-logo" src="company-assets/positive-young-minds-logo.jpg" alt="" /><span>Positive Young Minds</span></div>
+        <img class="auth-logo" src="company-assets/positive-young-minds-logo.jpg" alt="Official Positive Young Minds logo" />
+        <h1 id="auth-title">Create the main overseer account</h1>
+        <p id="auth-description">Sign in with your email and password.</p>
+        <div id="auth-avatar" class="auth-avatar" hidden>
+          <img id="auth-avatar-image" alt="Account profile picture" />
+        </div>
+        <label id="auth-name-label">
+          <span>Your name</span>
+          <input id="auth-name" type="text" autocomplete="name" maxlength="100" />
+        </label>
+        <label id="auth-photo-label">
+          <span>Profile picture</span>
+          <input id="auth-photo" type="file" accept="image/*" />
+        </label>
+        <label id="auth-email-label">
+          <span>Email</span>
+          <input id="auth-email" type="email" autocomplete="username" maxlength="160" required />
+        </label>
+        <label id="auth-password-label">
+          <span>Password</span>
+          <input id="auth-password" type="password" autocomplete="current-password" minlength="8" required />
+        </label>
+        <label id="auth-confirm-label">
+          <span>Confirm password</span>
+          <input id="auth-confirm-password" type="password" autocomplete="new-password" minlength="8" />
+        </label>
+        <p id="auth-error" class="auth-error" role="alert" hidden></p>
+        <button id="auth-submit" class="primary-button" type="submit">Create account</button>
+      </form>
+    </section>
+
+    <div class="page-shell">
+      <div class="dashboard">
+        <aside class="sidebar">
+          <div class="brand">
+            <img class="brand-logo" src="company-assets/positive-young-minds-logo.jpg" alt="" />
+            <span>Positive Young Minds</span>
+          </div>
+
+          <div class="user-card">
+            <div class="avatar-wrap" id="admin-avatar-wrap">
+              <div class="avatar"></div>
+            </div>
+            <div class="user-name" id="admin-display-name">Welcome</div>
+            <div class="user-email" id="admin-display-email"></div>
+            <div class="user-email" id="admin-display-role"></div>
+            <button type="button" class="profile-edit-button" data-open-dialog="profile-dialog">Edit profile</button>
+          </div>
+
+          <nav class="nav">
+            <div class="nav-item active" data-tab="dashboard"><span class="nav-icon dashboard-icon"></span>Dashboard</div>
+            <div class="nav-item" data-tab="staff"><span class="nav-icon employee-icon"></span>Staff</div>
+            <div class="nav-item" data-tab="beneficiaries" data-overseer-only hidden><span class="nav-icon employee-icon"></span>Beneficiaries</div>
+            <div class="nav-item" data-tab="projects"><span class="nav-icon payroll-icon"></span>Programmes &amp; Projects</div>
+            <div class="nav-item" data-tab="reports"><span class="nav-icon reports-icon"></span>Reports</div>
+            <div class="nav-item" data-tab="records"><span class="nav-icon reports-icon"></span>Records</div>
+            <button type="button" class="nav-item" data-open-dialog="profile-dialog"><span class="nav-icon employee-icon"></span>My profile</button>
+            <button type="button" class="nav-item" data-open-dialog="notifications-dialog" id="notifications-nav-item"><span class="nav-icon reports-icon"></span>Notifications <span id="notification-count" class="notification-count" hidden>0</span></button>
+            <div class="nav-item" data-tab="audit" data-overseer-only hidden><span class="nav-icon reports-icon"></span>Change history</div>
+          </nav>
+
+          <div class="nav-foot">
+            <div class="nav-item small" data-tab="help"><span class="nav-icon help-icon"></span>Help / Contact</div>
+            <button type="button" class="nav-item small" data-open-dialog="settings-dialog"><span class="nav-icon settings-icon"></span>Settings</button>
+          </div>
+        </aside>
+
+        <main class="main-panel">
+          <div id="announcement-banner" class="announcement-banner" role="alert" aria-live="assertive" hidden>
+            <div>
+              <strong id="announcement-banner-title"></strong>
+              <p id="announcement-banner-message"></p>
+              <small id="announcement-banner-meta"></small>
+            </div>
+            <button id="dismiss-announcement" class="secondary-button" type="button">Dismiss</button>
+          </div>
+          <header class="topbar">
+            <div class="search-wrap">
+              <div class="header-search">
+                <span class="search-icon-small"></span>
+                <input type="text" placeholder="Search people, projects or documents" />
+              </div>
+            </div>
+            <div class="top-actions">
+              <button class="icon-button" id="notifications-shortcut" title="Notifications" type="button" aria-label="Open notifications">
+                <span class="action-icon bell-icon"></span>
+                <span id="notification-bell-count" class="notification-badge" hidden>0</span>
+              </button>
+              <button id="lock-app" class="lock-button" type="button">Lock app</button>
+              <button id="settings-shortcut" class="icon-button" title="Settings" aria-label="Open settings" type="button">
+                <span class="action-icon setting-icon"></span>
+              </button>
+            </div>
+          </header>
+
+          <section id="dashboard" class="tab-panel active">
+            <section class="welcome-banner" aria-labelledby="welcome-title">
+              <div class="welcome-copy">
+                <span class="welcome-eyebrow">POSITIVE YOUNG MINDS · JOHANNESBURG</span>
+                <h1 id="welcome-title">Organisation overview</h1>
+                <p>Manage people, programmes, attendance, tasks, reports and records for youth development and mental health awareness work.</p>
+                <div class="welcome-pillars"><strong>Mission:</strong> “Building Our Tomorrow Today” &nbsp; <strong>Vision:</strong> Every young person can make a difference.</div>
+              </div>
+              <img class="welcome-logo" src="company-assets/positive-young-minds-logo.jpg" alt="Positive Young Minds official logo" />
+            </section>
+            <div class="quick-actions">
+              <button class="quick-btn primary" type="button" data-open-dialog="person-dialog" data-overseer-only hidden>Add person</button>
+              <button class="quick-btn" type="button" data-open-dialog="project-dialog">New programme</button>
+              <button class="quick-btn" type="button" data-open-dialog="report-dialog">Add monthly report</button>
+              <button class="quick-btn" type="button" data-open-dialog="record-dialog">Upload record</button>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="icon-wrap person"></div>
+                <div class="stat-body">
+                  <div class="stat-label">Total People</div>
+                  <div class="stat-row">
+                    <div id="total-employee" class="stat-count">0</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="icon-wrap team"></div>
+                <div class="stat-body">
+                  <div class="stat-label">Staff & Roles</div>
+                  <div class="stat-row">
+                    <div id="new-employee" class="stat-count">0</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="icon-wrap leave"></div>
+                <div class="stat-body">
+                  <div class="stat-label">Volunteers</div>
+                  <div class="stat-row">
+                    <div id="resigned-employee" class="stat-count">0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <section class="operations-overview" aria-label="Programme operations summary">
+              <article class="operations-metric">
+                <span>Active programmes &amp; projects</span>
+                <strong id="dashboard-program-count">0</strong>
+              </article>
+              <article class="operations-metric">
+                <span>Open tasks</span>
+                <strong id="dashboard-open-task-count">0</strong>
+              </article>
+              <article class="operations-metric">
+                <span>Progress reports</span>
+                <strong id="dashboard-report-count">0</strong>
+              </article>
+            </section>
+
+            <section class="beneficiaries-section" aria-labelledby="beneficiaries-title">
+              <div class="panel-header">
+                <div>
+                  <h2 id="beneficiaries-title">Beneficiaries by department</h2>
+                  <p class="form-hint">View beneficiary profiles and programme/project details by department.</p>
+                </div>
+                <label class="beneficiary-department-picker">
+                  <span>Department</span>
+                  <select id="beneficiary-department-filter" aria-label="Select a department for beneficiary details">
+                    <option value="">Choose a department</option>
+                  </select>
+                </label>
+              </div>
+              <div id="beneficiaries-by-department" class="beneficiaries-grid"></div>
+            </section>
+
+            <div class="panel employee-panel">
+              <div class="panel-header">
+                <h3>People, volunteers and beneficiaries</h3>
+                <div class="panel-actions">
+                  <button class="pill-button">Filter</button>
+                  <button class="pill-button muted">Search</button>
+                </div>
+              </div>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Person</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-people-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="staff" class="tab-panel">
+            <div class="quick-actions section-actions" aria-label="Staff actions">
+              <button class="quick-btn primary" type="button" data-open-dialog="person-dialog" data-overseer-only hidden>Add profile</button>
+              <button class="quick-btn" type="button" data-open-dialog="attendance-dialog">Record attendance</button>
+              <button class="quick-btn" type="button" data-open-dialog="responsibility-dialog">Assign responsibility</button>
+            </div>
+            <div class="list-panel attendance-clock-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Today's attendance</h3>
+                  <p id="attendance-clock-status" class="form-hint" role="status">Sign in to automatically clock in.</p>
+                  <p id="attendance-clock-error" class="form-hint error-message" role="alert" hidden></p>
+                </div>
+                <button id="clock-out-button" class="primary-button" type="button" hidden>Clock out</button>
+              </div>
+            </div>
+            <div class="management-layout">
+              <div class="form-panel">
+                <h3>Member / Beneficiary Profile</h3>
+                <form id="person-form">
+                  <input type="hidden" name="personId" />
+                  <p class="form-hint">ID, health, and uploaded details are saved in this browser. This app does not provide secure document storage.</p>
+                  <h4>A. Personal details</h4>
+                  <div class="field-grid two-up">
+                    <label><span>Full name</span><input name="name" required /></label>
+                    <label><span>ID number</span><input name="idNumber" autocomplete="off" /></label>
+                    <label><span>Date of birth</span><input type="date" name="dateOfBirth" /></label>
+                    <label>
+                      <span>Gender</span>
+                      <select name="gender">
+                        <option value="">Select gender</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        <option value="other">Other</option>
+                        <option value="prefer_not_to_say">Prefer not to say</option>
+                      </select>
+                    </label>
+                    <label><span>Phone / WhatsApp *</span><input type="tel" name="phone" required /></label>
+                    <label><span>Email</span><input type="email" name="email" /></label>
+                    <label><span>Address (area)</span><input name="address" placeholder="e.g. Soweto, Johannesburg" /></label>
+                    <label>
+                      <span>Are you in school or out of school?</span>
+                      <select name="schoolStatus">
+                        <option value="">Select status</option>
+                        <option value="in_school">In school</option>
+                        <option value="out_of_school">Out of school</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span>Highest qualification</span>
+                      <select name="qualification">
+                        <option value="">Select qualification</option>
+                        <option value="grade_10">Grade 10</option>
+                        <option value="grade_11">Grade 11</option>
+                        <option value="grade_12">Grade 12 / Matric</option>
+                        <option value="certificate">Certificate</option>
+                        <option value="diploma">Diploma</option>
+                        <option value="degree">Degree</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </label>
+                  </div>
+                  <label id="custom-qualification-field" hidden>
+                    <span>Other highest qualification</span>
+                    <input name="customQualification" maxlength="100" />
+                  </label>
+                  <h4>B. Department and role</h4>
+                  <div class="field-grid two-up">
+                    <label><span>Department</span><select name="department" required></select></label>
+                    <label>
+                      <span>Role you want</span>
+                      <select name="role" required>
+                        <option value="staff">Staff</option>
+                        <option value="volunteer">Volunteer</option>
+                        <option value="beneficiary">Beneficiary</option>
+                        <option value="administrator">Administrator</option>
+                        <option value="manager">Manager</option>
+                        <option value="coordinator">Coordinator</option>
+                        <option value="project_lead">Project Lead</option>
+                        <option value="finance_officer">Finance Officer</option>
+                        <option value="intern">Intern</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </label>
+                  </div>
+                  <label id="custom-role-field" hidden>
+                    <span>Other role</span>
+                    <input name="customRole" maxlength="60" />
+                  </label>
+                  <label id="person-login-field" data-overseer-only hidden>
+                    <span><input name="createAccount" type="checkbox" /> Create a department login for this member</span>
+                  </label>
+                  <label id="person-login-password-field" hidden>
+                    <span>Temporary password for member</span>
+                    <input name="accountPassword" type="password" minlength="8" autocomplete="new-password" />
+                  </label>
+                  <p id="person-login-message" class="form-hint" hidden></p>
+                  <label><span>Why do you want to join?</span><textarea name="motivation"></textarea></label>
+                  <label><span>Any disability / health condition we should know about? (Optional)</span><input name="healthCondition" /></label>
+                  <h4>C. Upload documents (optional)</h4>
+                  <label>
+                    <span>Your picture (profile photo)</span>
+                    <input type="file" name="photo" accept="image/*" />
+                  </label>
+                  <div class="profile-photo-preview" id="profile-photo-preview" hidden>
+                    <img alt="Selected profile picture preview" />
+                    <span>Picture preview</span>
+                  </div>
+                  <label>
+                    <span>CV (PDF / Word)</span>
+                    <input type="file" name="cv" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                    <small class="form-hint" id="person-cv-status">Optional. Up to 2 MB across all profile documents.</small>
+                  </label>
+                  <label>
+                    <span>ID copy</span>
+                    <input type="file" name="idCopy" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,application/pdf,image/*" />
+                    <small class="form-hint" id="person-id-copy-status">Optional.</small>
+                  </label>
+                  <label>
+                    <span>Matric certificate</span>
+                    <input type="file" name="matricCertificate" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,application/pdf,image/*" />
+                    <small class="form-hint" id="person-matric-status">Optional.</small>
+                  </label>
+                  <div class="form-actions">
+                    <button id="person-submit-button" type="submit" class="primary-button">Save person</button>
+                    <button id="cancel-person-edit" type="button" class="secondary-button" hidden>Cancel edit</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="form-panel">
+                <h3>Record Attendance</h3>
+                <form id="attendance-form">
+                  <div class="field-grid two-up">
+                    <label><span>Person ID</span><input name="personId" type="number" required /></label>
+                    <label><span>Status</span><select name="status"><option value="present">Present</option><option value="absent">Absent</option><option value="late">Late</option></select></label>
+                  </div>
+                  <label><span>Date</span><input type="date" name="date" /></label>
+                  <button type="submit" class="primary-button">Save attendance</button>
+                </form>
+              </div>
+
+              <div class="form-panel">
+                <h3>Assign Responsibility</h3>
+                <form id="responsibility-form">
+                  <div class="field-grid two-up">
+                    <label><span>Person ID</span><input name="personId" type="number" required /></label>
+                    <label><span>Due date</span><input type="date" name="dueDate" /></label>
+                  </div>
+                  <label><span>Description</span><textarea name="description" required></textarea></label>
+                  <button type="submit" class="primary-button">Assign</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-header compact"><h3>Members</h3></div>
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>Person</th><th>Role</th><th>Department</th><th>School status</th><th>Highest qualification</th><th>Profile</th></tr>
+                </thead>
+                <tbody id="people-table"></tbody>
+              </table>
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-header compact"><h3>Attendance</h3></div>
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>Name</th><th>Date</th><th>Clock in</th><th>Clock out</th><th>Status</th></tr>
+                </thead>
+                <tbody id="attendance-table"></tbody>
+              </table>
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-header compact"><h3>Responsibilities</h3></div>
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>Name</th><th>Task</th><th>Due date</th></tr>
+                </thead>
+                <tbody id="responsibility-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="beneficiaries" class="tab-panel" data-overseer-only hidden>
+            <div class="panel-header">
+              <div>
+                <h1>Beneficiaries</h1>
+                <p class="form-hint">Create and manage individual beneficiary profiles using the application questionnaire.</p>
+              </div>
+              <button class="quick-btn primary" type="button" data-open-dialog="person-dialog" data-profile-role="beneficiary">Add beneficiary</button>
+            </div>
+            <div class="list-panel">
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>Beneficiary</th><th>Department</th><th>School status</th><th>Highest qualification</th><th>Profile</th></tr>
+                </thead>
+                <tbody id="beneficiaries-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="projects" class="tab-panel">
+            <div class="quick-actions section-actions" aria-label="Programme and project actions">
+              <button class="quick-btn primary" type="button" data-open-dialog="project-dialog">Add programme / project</button>
+              <button class="quick-btn" type="button" data-open-dialog="task-dialog">Add task</button>
+              <label class="department-filter-control" data-overseer-only hidden>
+                <span>View by department</span>
+                <select id="project-department-filter" aria-label="Filter projects by department">
+                  <option value="">All departments</option>
+                </select>
+              </label>
+            </div>
+            <p class="form-hint">Programmes, projects, and event activities are managed here using the existing programme/project and task records.</p>
+            <div class="management-layout">
+              <div class="form-panel">
+                <h3 id="project-form-title">Create Programme or Project</h3>
+                <form id="project-form">
+                  <input type="hidden" name="projectId" />
+                  <label><span>Programme / project name</span><input name="name" required /></label>
+                  <label>
+                    <span>Activity type</span>
+                    <select name="activityType" required>
+                      <option value="">Select a type</option>
+                      <option value="workshop">Workshop</option>
+                      <option value="drive">Drive</option>
+                      <option value="event">Event</option>
+                      <option value="campaign">Campaign</option>
+                      <option value="training">Training</option>
+                      <option value="programme">Programme</option>
+                      <option value="project">Project</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                  <label id="custom-activity-type-field" hidden>
+                    <span>Other activity type</span>
+                    <input name="customActivityType" maxlength="80" />
+                  </label>
+                  <label>
+                    <span>Programme area</span>
+                    <select name="type" required>
+                      <option value="general">General programme / project</option>
+                      <option value="mental_health">Mental health awareness</option>
+                      <option value="youth_development">Youth development</option>
+                      <option value="work_integrated_learning">Work-integrated learning (WIL)</option>
+                      <option value="digital_skills">Digital and computer skills training</option>
+                      <option value="learner_support">Learner support and education</option>
+                      <option value="community_outreach">Community outreach</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                  <label><span>Description</span><textarea name="description"></textarea></label>
+                  <label><span>Department</span><select name="department" required></select></label>
+                  <div class="field-grid two-up">
+                    <label><span>Project lead</span><input name="lead" placeholder="Person responsible" /></label>
+                    <label>
+                      <span>Status</span>
+                      <select name="status">
+                        <option value="planned">Planned</option>
+                        <option value="in_progress">In progress</option>
+                        <option value="on_hold">On hold</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                      </select>
+                    </label>
+                  </div>
+                  <label><span>Address / project location</span><input name="address" placeholder="Where the project takes place" /></label>
+                  <label>
+                    <span>Project picture</span>
+                    <input type="file" name="photo" accept="image/*" />
+                  </label>
+                  <div class="project-photo-preview" id="project-photo-preview" hidden>
+                    <img alt="Selected project picture preview" />
+                    <span>Picture preview</span>
+                  </div>
+                  <div class="field-grid two-up">
+                    <label><span>Budget</span><input type="number" name="budget" min="0" value="0" /></label>
+                    <label><span>Start date</span><input type="date" name="startDate" /></label>
+                    <label><span>Deadline</span><input type="date" name="deadline" /></label>
+                  </div>
+                  <label><span>Additional notes</span><textarea name="notes" placeholder="Goals, milestones, or other useful details"></textarea></label>
+                  <div class="form-actions">
+                    <button id="project-submit-button" type="submit" class="primary-button">Create programme / project</button>
+                    <button id="cancel-project-edit" type="button" class="secondary-button" hidden>Cancel edit</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="form-panel">
+                <h3>Add Task</h3>
+                <form id="task-form">
+                  <div class="field-grid two-up">
+                    <label><span>Programme / project ID</span><input name="projectId" type="number" required /></label>
+                    <label><span>Due date</span><input type="date" name="dueDate" /></label>
+                  </div>
+                  <label><span>Task title</span><input name="title" required /></label>
+                  <button type="submit" class="primary-button">Add task</button>
+                </form>
+              </div>
+
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-header compact"><h3>Programmes &amp; Projects</h3></div>
+              <table>
+                <thead><tr><th>Picture</th><th>ID</th><th>Name</th><th>Activity type</th><th>Programme area</th><th>Status</th><th>Budget</th><th>Deadline</th><th>Details / edit</th></tr></thead>
+                <tbody id="project-table"></tbody>
+              </table>
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-header compact"><h3>Tasks</h3></div>
+              <table>
+                <thead><tr><th>ID</th><th>Programme / project</th><th>Title</th><th>Due date</th><th>Status</th></tr></thead>
+                <tbody id="task-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="reports" class="tab-panel">
+            <div class="quick-actions section-actions" aria-label="Report actions">
+              <button class="quick-btn primary" type="button" data-open-dialog="report-dialog">Add monthly report</button>
+              <label class="department-filter-control">
+                <span>Filter by month</span>
+                <input id="report-month-filter" type="month" aria-label="Filter reports by month" />
+              </label>
+            </div>
+            <div class="management-layout">
+              <div class="form-panel wide-form">
+                <h3>Add Monthly Report</h3>
+                <form id="report-form">
+                  <label><span>Reporting month</span><input name="reportingMonth" type="month" required /></label>
+                  <label><span>Programme / project ID</span><input name="projectId" type="number" required /></label>
+                  <label><span>Monthly report</span><textarea name="report" required></textarea></label>
+                  <button type="submit" class="primary-button">Save monthly report</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-header compact"><h3>Monthly Reports</h3></div>
+              <table>
+                <thead><tr><th>ID</th><th>Month</th><th>Programme / project</th><th>Report</th><th>Created</th></tr></thead>
+                <tbody id="report-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="records" class="tab-panel">
+            <div class="quick-actions section-actions" aria-label="Document actions">
+              <button class="quick-btn primary" type="button" data-open-dialog="record-dialog">Upload document</button>
+            </div>
+            <div class="management-layout">
+              <div class="form-panel wide-form">
+                <h3>Upload Document</h3>
+                <form id="record-form">
+                  <div class="field-grid two-up">
+                    <label><span>Document title</span><input name="title" required /></label>
+                    <label><span>Category</span><input name="category" required /></label>
+                  </div>
+                  <label><span>Department</span><select name="department" required></select></label>
+                  <label id="person-role-field"><span>Description</span><textarea name="description"></textarea></label>
+                  <label><span>Choose a document</span><input type="file" name="file" required /></label>
+                  <p class="form-hint">Your department and account identity are attached automatically. Upload a file up to 2 MB; documents are saved in this browser on this device.</p>
+                  <button type="submit" class="primary-button">Upload document</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-header compact">
+                <h3>Records</h3>
+                <div class="record-search-wrap">
+                  <input id="record-search" type="search" placeholder="Search records" />
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Department</th><th>Description</th><th>File</th><th>Uploaded by</th><th>Date</th></tr></thead>
+                <tbody id="record-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="settings" class="tab-panel">
+            <div class="settings-grid">
+              <div class="form-panel">
+                <h3>Appearance & accessibility</h3>
+                <form id="accessibility-form">
+                  <label>
+                    <span>Color theme</span>
+                    <select name="theme">
+                      <option value="dark">Dark</option>
+                      <option value="light">Light</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>Text size</span>
+                    <select name="textSize">
+                      <option value="normal">Normal</option>
+                      <option value="large">Large</option>
+                      <option value="x-large">Extra large</option>
+                    </select>
+                  </label>
+                  <label class="setting-toggle"><input type="checkbox" name="highContrast" /><span>High contrast</span></label>
+                  <label class="setting-toggle"><input type="checkbox" name="reduceMotion" /><span>Reduce animations</span></label>
+                  <label class="setting-toggle"><input type="checkbox" name="largeTargets" /><span>Larger buttons and controls</span></label>
+                  <p id="accessibility-message" class="form-hint" role="status" hidden></p>
+                </form>
+              </div>
+
+              <div class="form-panel">
+                <h3>Change password</h3>
+                <form id="change-password-form">
+                  <label><span>Current password</span><input type="password" name="currentPassword" autocomplete="current-password" required /></label>
+                  <label><span>New password</span><input type="password" name="newPassword" autocomplete="new-password" minlength="8" required /></label>
+                  <label><span>Confirm new password</span><input type="password" name="confirmPassword" autocomplete="new-password" minlength="8" required /></label>
+                  <p id="password-change-message" class="form-hint" role="status" hidden></p>
+                  <button type="submit" class="primary-button">Update password</button>
+                </form>
+              </div>
+
+              <div class="form-panel" data-overseer-only hidden>
+                <h3>Add department account</h3>
+                <p class="form-hint">The new account can view and update records assigned to its department.</p>
+                <form id="user-form">
+                  <label><span>Name</span><input name="name" maxlength="100" required /></label>
+                  <label><span>Email</span><input name="email" type="email" maxlength="160" required /></label>
+                  <label><span>Department</span><select name="department" required></select></label>
+                  <label><span>Temporary password</span><input name="password" type="password" minlength="8" autocomplete="new-password" required /></label>
+                  <p id="user-message" class="form-hint" role="status" hidden></p>
+                  <button type="submit" class="primary-button">Create department account</button>
+                </form>
+                <div class="panel-header compact"><h3>Accounts</h3></div>
+                <table>
+                  <thead><tr><th>Name</th><th>Email</th><th>Access</th><th>Edit code</th><th>Reset request</th></tr></thead>
+                  <tbody id="user-table"></tbody>
+                </table>
+                <div class="panel-header compact"><h3>Departments</h3></div>
+                <p class="form-hint">Removing a department clears it from staff, projects, records, and accounts, and removes its department-only announcements.</p>
+                <form id="department-form">
+                  <label><span>Department name</span><input name="name" maxlength="100" required /></label>
+                  <p id="department-message" class="form-hint" role="status" hidden></p>
+                  <button type="submit" class="primary-button">Add department</button>
+                </form>
+                <table>
+                  <thead><tr><th>Department</th><th>Action</th></tr></thead>
+                  <tbody id="department-table"></tbody>
+                </table>
+              </div>
+
+              <div class="form-panel" data-overseer-only hidden>
+                <h3>Backup and restore</h3>
+                <p class="form-hint">Export a copy of your local members, projects, records, and related data. Keep backup files private.</p>
+                <div class="settings-actions">
+                  <button id="export-data" type="button" class="primary-button">Download backup</button>
+                  <label class="file-button"><span>Restore from backup</span><input id="import-data" type="file" accept="application/json,.json" /></label>
+                </div>
+                <p id="backup-message" class="form-hint" role="status" hidden></p>
+              </div>
+            </div>
+            <p class="settings-warning">Edit codes are stored in this browser and only add a local editing prompt; they do not provide secure authentication or protect browser-stored data. Use a server with access controls for real multi-user security.</p>
+          </section>
+
+          <section id="audit" class="tab-panel" data-overseer-only hidden>
+            <div class="list-panel">
+              <div class="panel-header compact">
+                <h3>Organisation change history</h3>
+                <span class="form-hint">Visible only to the main overseer on this browser.</span>
+              </div>
+              <table>
+                <thead><tr><th>Date and time</th><th>Person</th><th>Email</th><th>Change</th></tr></thead>
+                <tbody id="audit-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="notifications" class="tab-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Notifications</h2>
+                <p class="form-hint">Send a private message to a user or post an urgent announcement.</p>
+              </div>
+              <button id="mark-all-notifications-read" class="secondary-button" type="button">Mark all as read</button>
+            </div>
+            <div class="list-panel">
+              <div class="panel-header compact">
+                <h3>Inbox and announcements</h3>
+                <span id="notification-inbox-summary" class="form-hint"></span>
+              </div>
+              <div id="notification-list" class="notification-list"></div>
+            </div>
+            <div class="management-layout">
+              <div class="form-panel">
+                <h3>Send a notification</h3>
+                <form id="notification-form">
+                  <label><span>To</span><select name="recipient" id="notification-recipient" required></select></label>
+                  <label><span>Subject</span><input name="title" maxlength="120" required /></label>
+                  <label><span>Message</span><textarea name="message" maxlength="2000" required></textarea></label>
+                  <p id="notification-message" class="form-hint" role="status" hidden></p>
+                  <button type="submit" class="primary-button">Send notification</button>
+                </form>
+              </div>
+              <div class="form-panel">
+                <h3>Post an urgent announcement</h3>
+                <form id="announcement-form">
+                  <label><span>Announcement title</span><input name="title" maxlength="120" required /></label>
+                  <label id="announcement-audience-field">
+                    <span>Audience</span>
+                    <select name="audience" id="announcement-audience">
+                      <option value="department">My department</option>
+                      <option value="all">Everyone</option>
+                    </select>
+                  </label>
+                  <label id="announcement-department-field" hidden>
+                    <span>Department</span>
+                    <select name="department" id="announcement-department"></select>
+                  </label>
+                  <label><span>Announcement</span><textarea name="message" maxlength="2000" required></textarea></label>
+                  <p class="form-hint">This appears in a prominent banner at the top of the screen for the selected audience.</p>
+                  <p id="announcement-message" class="form-hint" role="status" hidden></p>
+                  <button type="submit" class="primary-button">Post announcement</button>
+                </form>
+              </div>
+            </div>
+          </section>
+
+          <section id="help" class="tab-panel">
+            <div class="form-panel wide-form contact-panel">
+              <h2>Organisation contact</h2>
+              <p class="form-hint">Positive Young Minds is listed as a nonprofit organisation serving learners and youth in Johannesburg and Roodepoort.</p>
+              <div class="organisation-contact-details">
+                <div><strong>Address</strong><a href="https://www.google.com/maps/search/?api=1&amp;query=7+Rex+Street%2C+Roodepoort%2C+1724%2C+Johannesburg%2C+South+Africa" target="_blank" rel="noopener noreferrer">7 Rex Street, Roodepoort, 1724, Johannesburg, South Africa</a></div>
+                <div><strong>Phone</strong><a href="tel:+27665632663">066 563 2663</a></div>
+                <div><strong>Email</strong><a href="mailto:positiveyoungmindsoffice@gmail.com">positiveyoungmindsoffice@gmail.com</a></div>
+              </div>
+              <details class="official-links">
+                <summary>Official public channels and source pages</summary>
+                <a href="https://www.facebook.com/people/Positive-Young-Minds/100095475965556/?sk=about" target="_blank" rel="noopener noreferrer">Facebook</a>
+                <a href="https://www.instagram.com/p/DbXb3broO8m/" target="_blank" rel="noopener noreferrer">Instagram mission and vision post</a>
+                <a href="https://za.linkedin.com/in/positive-young-minds-youth-organisation-909678259" target="_blank" rel="noopener noreferrer">LinkedIn profile</a>
+                <a href="https://whatsapp.com/channel/0029Va68n97JkK77XvMmSa2v" target="_blank" rel="noopener noreferrer">WhatsApp channel</a>
+              </details>
+            </div>
+            <div class="form-panel wide-form contact-panel">
+              <h2>Contact support</h2>
+              <p class="form-hint">Fill in the contact email and message. Your default email app will open with a draft; nothing is sent automatically.</p>
+              <form id="contact-form">
+                <div class="field-grid two-up">
+                  <label><span>Contact email</span><input type="email" name="to" value="positiveyoungmindsoffice@gmail.com" required /></label>
+                  <label><span>Your email (optional)</span><input type="email" name="from" placeholder="you@example.org" /></label>
+                </div>
+                <label><span>Subject</span><input name="subject" required value="Positive Young Minds support request" /></label>
+                <label><span>How can we help?</span><textarea name="message" rows="6" required></textarea></label>
+                <button type="submit" class="primary-button">Open email draft</button>
+              </form>
+            </div>
+          </section>
+
+          <section id="profile" class="tab-panel">
+            <div class="form-panel profile-panel">
+              <h2>My profile</h2>
+              <p class="form-hint">Update the name, email, and picture shown in the sidebar.</p>
+              <form id="admin-profile-form">
+                <div class="field-grid two-up">
+                  <label><span>Name</span><input name="name" maxlength="100" required /></label>
+                  <label><span>Email</span><input name="email" type="email" maxlength="160" required /></label>
+                </div>
+                <label><span>Profile picture</span><input type="file" name="photo" accept="image/*" /></label>
+                <div id="admin-photo-preview" class="profile-photo-preview" hidden>
+                  <img alt="Profile picture preview" />
+                  <span>Current profile picture</span>
+                  <button type="button" id="remove-admin-photo" class="secondary-button">Remove picture</button>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="primary-button">Save profile</button>
+                </div>
+                <p id="admin-profile-message" class="form-hint" role="status" hidden></p>
+              </form>
+            </div>
+            <div class="form-panel profile-panel">
+              <h3>Editing verification code</h3>
+              <p class="form-hint">Set a separate six-digit code to verify changes. You can view the app without it; updates stay locked until you enter it.</p>
+              <form id="edit-code-form">
+                <label><span>New six-digit edit code</span><input name="code" type="password" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="new-password" required /></label>
+                <label><span>Confirm edit code</span><input name="confirmCode" type="password" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="new-password" required /></label>
+                <button type="submit" class="primary-button">Set edit code</button>
+                <p id="edit-code-message" class="form-hint" role="status" hidden></p>
+              </form>
+              <button id="request-edit-code-reset" type="button" class="secondary-button" hidden>Request overseer reset</button>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <dialog id="edit-verification-dialog" class="workflow-dialog" aria-labelledby="edit-verification-title">
+      <div class="workflow-dialog-header">
+        <h2 id="edit-verification-title">Verify to make changes</h2>
+        <button id="close-edit-verification" class="dialog-close-button" type="button" aria-label="Close verification">×</button>
+      </div>
+      <div class="workflow-dialog-body">
+        <form id="edit-verification-form">
+          <p id="edit-verification-description" class="form-hint">Enter your six-digit edit code to continue.</p>
+          <label id="edit-verification-code-label"><span>Six-digit edit code</span><input name="code" type="password" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="current-password" required /></label>
+          <p id="edit-verification-message" class="form-hint error-message" role="alert" hidden></p>
+          <div class="form-actions">
+            <button type="submit" class="primary-button">Verify and continue</button>
+            <button id="open-edit-code-profile" type="button" class="secondary-button" hidden>Set up code in My profile</button>
+            <button id="cancel-edit-verification" type="button" class="secondary-button">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
